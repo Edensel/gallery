@@ -7,7 +7,7 @@ let index = require('./routes/index');
 let image = require('./routes/image');
 
 // Connecting the database
-let mongodb_url = process.env.MONGO_URL || 'mongodb+srv://esekondensel:FDg9JCWHnqLXOe3N@projectip1cluster.rybsw.mongodb.net/myDatabaseName?retryWrites=true&w=majority';
+let mongodb_url = process.env.MONGO_URL || 'mongodb+srv://esekondensel:FDg9JCWHnqLXOe3N@projectip1cluster.rybsw.mongodb.net/test?retryWrites=true&w=majority';
 
 // Connect to MongoDB with proper connection string format
 mongoose.connect(mongodb_url, { useNewUrlParser: true, useUnifiedTopology: true })
