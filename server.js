@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
 const config = require('./config');
@@ -12,13 +11,11 @@ let image = require('./routes/image');
 const app = express();
 
 // Connecting the database
-let MONGODB_URI = process.env.MONGODB_URI || config.mongoURI[app.settings.env]
+let MONGODB_URI = process.env.MONGODB_URI || config.mongoURI[process.env.NODE_ENV || 'production'];
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Database connected successfully'))
     .catch(err => console.log("MongoDB connection error: ", err));
-
-
 
 // View Engine
 app.set('view engine', 'ejs');
@@ -35,8 +32,10 @@ app.use('/image', image);
 
 // Server listening on port
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Server is listening at http://localhost:${PORT}`);
+const HOST = process.env.HOST || '0.0.0.0';
+
+app.listen(PORT, HOST, () => {
+    console.log(`Server is listening on http://${HOST}:${PORT}`);
 });
 
 module.exports = app;
