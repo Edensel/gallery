@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
 
@@ -8,19 +7,19 @@ let index = require('./routes/index');
 let image = require('./routes/image');
 
 // connecting the database
-let mongodb_url = 'mongodb+srv://esekondensel:FDg9JCWHnqLXOe3N@projectip1cluster.rybsw.mongodb.net/?retryWrites=true&w=majority&appName=ProjectIP1Cluster';
-mongoose.connect(mongodb_url, { useNewUrlParser: true, useUnifiedTopology: true }, (err)=>{
-    if (err) console.log(err)
+let mongodb_url = process.env.MONGO_URL || 'mongodb+srv://esekondensel:FDg9JCWHnqLXOe3N@projectip1cluster.rybsw.mongodb.net/myDatabaseName?retryWrites=true&w=majority';
+
+// Connect to MongoDB with proper connection string format
+mongoose.connect(mongodb_url, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
+    if (err) {
+        console.log("MongoDB connection error: ", err);
+    } else {
+        console.log('Database connected successfully');
+    }
 });
-// test if the database has connected successfully
-let db = mongoose.connection;
-db.once('open', ()=>{
-    console.log('Database connected successfully')
-})
 
 // Initializing the app
 const app = express();
-
 
 // View Engine
 app.set('view engine', 'ejs');
@@ -29,16 +28,14 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 
 // body parser middleware
-app.use(express.json())
+app.use(express.json());
 
-
+// Define routes
 app.use('/', index);
 app.use('/image', image);
 
-
-
- 
+// Server listening on port
 const PORT = process.env.PORT || 5000;
-app.listen(PORT,() =>{
-    console.log(`Server is listening at http://localhost:${PORT}`)
+app.listen(PORT, () => {
+    console.log(`Server is listening at http://localhost:${PORT}`);
 });
