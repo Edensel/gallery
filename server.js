@@ -6,17 +6,13 @@ const path = require('path');
 let index = require('./routes/index');
 let image = require('./routes/image');
 
-// connecting the database
+// Connecting the database
 let mongodb_url = process.env.MONGO_URL || 'mongodb+srv://esekondensel:FDg9JCWHnqLXOe3N@projectip1cluster.rybsw.mongodb.net/myDatabaseName?retryWrites=true&w=majority';
 
 // Connect to MongoDB with proper connection string format
-mongoose.connect(mongodb_url, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
-    if (err) {
-        console.log("MongoDB connection error: ", err);
-    } else {
-        console.log('Database connected successfully');
-    }
-});
+mongoose.connect(mongodb_url, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('Database connected successfully'))
+    .catch(err => console.log("MongoDB connection error: ", err));
 
 // Initializing the app
 const app = express();
@@ -24,10 +20,10 @@ const app = express();
 // View Engine
 app.set('view engine', 'ejs');
 
-// Set up the public folder;
+// Set up the public folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-// body parser middleware
+// Body parser middleware
 app.use(express.json());
 
 // Define routes
