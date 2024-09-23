@@ -18,6 +18,12 @@ pipeline{
                 }
             }
         }
+        stage('Run Tests'){
+            steps{
+                script{
+                    sh 'npm test'
+                }
+            }
     }
     triggers {
         pollSCM('* * * * *');
