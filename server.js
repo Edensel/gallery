@@ -1,21 +1,24 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
+const config = require('./config');
 
 // Define routes
 let index = require('./routes/index');
 let image = require('./routes/image');
 
-// Connecting the database
-let mongodb_url = process.env.MONGO_URL || 'mongodb+srv://esekondensel:FDg9JCWHnqLXOe3N@projectip1cluster.rybsw.mongodb.net/test?retryWrites=true&w=majority';
+// Initializing the app
+const app = express();
 
-// Connect to MongoDB with proper connection string format
-mongoose.connect(mongodb_url, { useNewUrlParser: true, useUnifiedTopology: true })
+// Connecting the database
+let MONGODB_URI = process.env.MONGODB_URI || config.mongoURI[app.settings.env]
+
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Database connected successfully'))
     .catch(err => console.log("MongoDB connection error: ", err));
 
-// Initializing the app
-const app = express();
+
 
 // View Engine
 app.set('view engine', 'ejs');
@@ -35,3 +38,5 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is listening at http://localhost:${PORT}`);
 });
+
+module.exports = app;
