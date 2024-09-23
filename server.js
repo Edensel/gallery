@@ -8,12 +8,10 @@ let index = require('./routes/index');
 let image = require('./routes/image');
 
 // connecting the database
-let mongodb_url = 'mongodb://localhost:27017/';
-let dbName = 'darkroom';
-mongoose.connect(`${mongodb_url}${dbName}`,{ useNewUrlParser: true , useUnifiedTopology: true }, (err)=>{
+let mongodb_url = 'mongodb+srv://esekondensel:FDg9JCWHnqLXOe3N@projectip1cluster.rybsw.mongodb.net/?retryWrites=true&w=majority&appName=ProjectIP1Cluster';
+mongoose.connect(mongodb_url, { useNewUrlParser: true, useUnifiedTopology: true }, (err)=>{
     if (err) console.log(err)
 });
-
 // test if the database has connected successfully
 let db = mongoose.connection;
 db.once('open', ()=>{
