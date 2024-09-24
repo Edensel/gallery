@@ -1,9 +1,10 @@
-var config = {}
+var config = {};
 
-// Update to have your correct username and password
+// Update to have your correct username, password, and database
 config.mongoURI = {
-    production: 'mongodb+srv://esekondensel:FDg9JCWHnqLXOe3N@gallery.wc344.mongodb.net/darkroom?retryWrites=true&w=majority',
-    development: 'mongodb+srv://esekondensel:FDg9JCWHnqLXOe3N@gallery.wc344.mongodb.net/darkroom-dev?retryWrites=true&w=majority',
-    test: 'mongodb+srv://esekondensel:FDg9JCWHnqLXOe3N@gallery.wc344.mongodb.net/darkroom-test?retryWrites=true&w=majority',
-}
+    production: 'mongodb+srv://esekondensel:FDg9JCWHnqLXOe3N@projectip1cluster.rybsw.mongodb.net/?retryWrites=true&w=majority&appName=ProjectIP1Cluster',
+    development: 'mongodb+srv://esekondensel:FDg9JCWHnqLXOe3N@projectip1cluster.rybsw.mongodb.net/?retryWrites=true&w=majority&appName=ProjectIP1Cluster',
+    test: 'mongodb+srv://esekondensel:FDg9JCWHnqLXOe3N@projectip1cluster.rybsw.mongodb.net/?retryWrites=true&w=majority&appName=ProjectIP1Cluster'
+};
+
 module.exports = config;
