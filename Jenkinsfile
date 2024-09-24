@@ -24,8 +24,9 @@ pipeline{
                     sh 'npm test'
                 }
             }
-    }
+        }
     triggers {
         pollSCM('* * * * *');
+        }
     }
 }
