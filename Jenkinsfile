@@ -25,4 +25,12 @@ pipeline{
             sh 'npm start'
         }
     }
+
+    post {
+        success {
+            slackSend channel: 'densel-IP-1',
+                color: 'grey',
+                message: "Build successfull! Build ID: $env.BUILD_ID}\nDeploy URL: ${env.RENDER_DEPLOY_URL}"
+        }
+    }
 }
